@@ -5,6 +5,7 @@ using UnityEngine.SceneManagement;
 public class BallController : MonoBehaviour
 {
 
+
     [SerializeField] float thrust = 150f;
     [SerializeField] float speed = 5f;
     Rigidbody rb;
@@ -16,11 +17,14 @@ public class BallController : MonoBehaviour
 
     bool dead = false;
 
-    public GameObject winPanel;
+    [SerializeField] GameObject winPanel;
+
+    [SerializeField] Material[] materials;
     // Start is called before the first frame update
     void Awake()
     {
         rb = GetComponent<Rigidbody>();
+        Time.timeScale = 0;
     }
 
     // Swipe Movement
@@ -114,5 +118,16 @@ public class BallController : MonoBehaviour
             SceneManager.LoadScene(0);
 
         
+    }
+
+    public void setMaterial(int index)
+    {
+        if (index < materials.Length)
+            GetComponent<Renderer>().material = materials[index];
+    }
+
+    public void StartGame()
+    {
+        Time.timeScale = 1;
     }
 }
